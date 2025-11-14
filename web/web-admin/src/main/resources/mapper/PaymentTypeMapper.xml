@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.lease.web.admin.mapper.PaymentTypeMapper">
+
+    <select id="selectTypeByRoomId" resultType="com.atguigu.lease.model.entity.PaymentType">
+        select p.name,
+               p.pay_month_count,
+               p.additional_info,
+               p.id
+        from payment_type p
+                 join room_payment_type r
+                      on p.id = r.payment_type_id
+        where
+            p.is_deleted = 0 and
+            r.is_deleted = 0 and
+            r.room_id = #{id}
+    </select>
+</mapper>

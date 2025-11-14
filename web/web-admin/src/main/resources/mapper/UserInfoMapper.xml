@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.lease.web.admin.mapper.UserInfoMapper">
+
+
+    <select id="selectByPage" resultType="com.atguigu.lease.model.entity.UserInfo">
+        select
+            ui.id,
+            ui.phone,
+            ui.nickname,
+            ui.status
+        from
+            user_info ui
+        <where>
+            ui.is_deleted = 0
+            <if test="queryVo.phone != null and queryVo.phone != ''">
+                and ui.phone like concat('%',#{queryVo.phone},'%')
+            </if>
+            <if test="queryVo.status != null">
+                and ui.status = #{queryVo.status}
+            </if>
+        </where>
+    </select>
+</mapper>
